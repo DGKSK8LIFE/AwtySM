@@ -25,11 +25,12 @@ def verify_login():
     account = query.fetchall()
     if account:
         db.close()
-        return "success"
+        return render_template('menu.html')
     # allow users to access dashboard here
     # close db and reload homepage
     db.close()
     return render_template('index.html')
+
 
 @app.route('/created', methods=['POST'])
 def create_account():
