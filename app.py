@@ -33,3 +33,19 @@ def verify_login():
 
 
 @app.route('/created', methods=['POST'])
+def create_account():
+    username = request.form.get('username')
+    password = request.form.get('password')
+    db = sqlite3.connect('accounts.sqlite')
+    q = db.execute(
+        f'SELECT * FROM accounts WHERE username=\'{username}\';')
+    if not q.fetchone():
+        db.execute(
+            f'INSERT INTO accounts VALUES (\'{username}\', \'{password}\');')
+        db.commit()
+        db.close()
+        """ going to allow entry here and give the user some kind of affirmation that their
+        accounts was created """
+        return render_template('index.html')
+    else:
+        return 'That username is taken! Please choose a different one'
