@@ -31,7 +31,6 @@ def verify_login():
     db.close()
     return render_template('index.html')
 
-
 @app.route('/created', methods=['POST'])
 def create_account():
     username = request.form.get('username')
