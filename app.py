@@ -7,7 +7,12 @@ app = Flask(__name__)
 
 @app.route("/")
 def login():
-    return render_template("index.html")
+    return render_template('index.html')
+
+
+@app.route("/create.html")
+def show_create():
+    return render_template('create.html')
 
 
 @app.route('/loggedin', methods=['POST'])
@@ -25,3 +30,5 @@ def verify_login():
     # close db and reload homepage
     db.close()
     return render_template('index.html')
+
+@app.route('/')
