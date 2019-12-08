@@ -5,12 +5,12 @@ import os
 app = Flask(__name__)
 
 
-@app.route("/")
+@app.route('/')
 def login():
     return render_template('index.html')
 
 
-@app.route("/create.html")
+@app.route('/create.html')
 def show_create():
     return render_template('create.html')
 
@@ -31,4 +31,5 @@ def verify_login():
     db.close()
     return render_template('index.html')
 
-@app.route('/')
+
+@app.route('/created', methods=['POST'])
