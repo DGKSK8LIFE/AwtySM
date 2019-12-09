@@ -4,6 +4,9 @@ import os
 
 app = Flask(__name__)
 
+restricted_chars = ('/', ';', '*', '=', '\'', '\"',
+                    '#', '<', '>', '[', ']', '{', '}')
+
 
 @app.route('/')
 def login():
@@ -49,17 +52,21 @@ def sports():
 def verify_login():
     username = request.form.get('username')
     password = request.form.get('password')
-    db = sqlite3.connect('accounts.sqlite')
-    query = db.execute(
-        f'SELECT * FROM accounts WHERE username=\'{username}\' AND password=\'{password}\';')
-    account = query.fetchall()
-    if account:
+    for i in restricted_chars:
+        if i in username:
+            return 'you inputted illegal characters! GTFO'
+    else:
+        db = sqlite3.connect('accounts.sqlite')
+        query = db.execute(
+            f'SELECT * FROM accounts WHERE username=\'{username}\' AND password=\'{password}\';')
+        account = query.fetchall()
+        if account:
+            db.close()
+            return render_template('menu.html')
+        # allow users to access dashboard here
+        # close db and reload homepage
         db.close()
-        return render_template('menu.html')
-    # allow users to access dashboard here
-    # close db and reload homepage
-    db.close()
-    return render_template('index.html')
+        return render_template('index.html')
 
 
 @app.route('/created', methods=['POST'])
