@@ -15,6 +15,36 @@ def show_create():
     return render_template('create.html')
 
 
+@app.route('/chat.html')
+def chat():
+    return render_template('chat.html')
+
+
+@app.route('/events.html')
+def events():
+    return render_template('events.html')
+
+
+@app.route('/memes.html')
+def events():
+    return render_template('memes.html')
+
+
+@app.route('/menu.html')
+def menu():
+    return render_template('menu.html')
+
+
+@app.route('/news.html')
+def news():
+    return render_template('news.html')
+
+
+@app.route('/sports.html')
+def sports():
+    return render_template('sports.html')
+
+
 @app.route('/loggedin', methods=['POST'])
 def verify_login():
     username = request.form.get('username')
