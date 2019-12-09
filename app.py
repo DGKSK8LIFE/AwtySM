@@ -25,9 +25,9 @@ def events():
     return render_template('events.html')
 
 
-# @app.route('/memes.html')
-# def events():
-#     return render_template('memes.html')
+@app.route('/memes.html')
+def memes():
+    return render_template('memes.html')
 
 
 @app.route('/menu.html')
