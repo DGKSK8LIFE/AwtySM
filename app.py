@@ -54,7 +54,7 @@ def verify_login():
     password = request.form.get('password')
     for i in restricted_chars:
         if i in username or i in password:
-            return render_template('charrerr.html')
+            return render_template('charerr.html')
     else:
         db = sqlite3.connect('accounts.sqlite')
         query = db.execute(
