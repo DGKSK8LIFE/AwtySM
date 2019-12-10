@@ -54,7 +54,7 @@ def verify_login():
     password = request.form.get('password')
     for i in restricted_chars:
         if i in username or i in password:
-            return 'account credentials cannot include illegal characters'
+            return render_template('charrerr.html')
     else:
         db = sqlite3.connect('accounts.sqlite')
         query = db.execute(
@@ -76,7 +76,7 @@ def create_account():
     db = sqlite3.connect('accounts.sqlite')
     for i in restricted_chars:
         if i in username or i in password:
-            return 'account credentials cannot contain illegal characters'
+            return render_template('charerr.html')
     else:
         q = db.execute(
             f'SELECT * FROM accounts WHERE username=\'{username}\';')
