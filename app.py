@@ -76,7 +76,7 @@ def create_account():
     db = sqlite3.connect('accounts.sqlite')
     for i in restricted_chars:
         if i in username or i in password:
-            return 'accounts credentials cannot contain illegal characters'
+            return 'account credentials cannot contain illegal characters'
     else:
         q = db.execute(
             f'SELECT * FROM accounts WHERE username=\'{username}\';')
