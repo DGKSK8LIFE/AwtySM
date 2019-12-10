@@ -63,8 +63,6 @@ def verify_login():
         if account:
             db.close()
             return render_template('menu.html')
-        # allow users to access dashboard here
-        # close db and reload homepage
         db.close()
         return render_template('index.html')
 
