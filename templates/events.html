@@ -38,7 +38,7 @@
 <body>
     <input name='title' type='text'><br>
     <main id="app">
-        <form id="myForm" action="/posted" method="post" v-on:rest.prevent="clear">
+        <form id="myForm" action="/posted/events" method="post" v-on:rest.prevent="clear">
             <textarea rows="8px" name="content" cols="70px" id="editor" placeholder="Enter the content (body)"
                 v-model="content"></textarea> <br>
             <input type='submit' value='Post'>
