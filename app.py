@@ -29,7 +29,7 @@ def events():
 
 @app.route('/memes.html')
 def memes():
-    return render_template('post.html')
+    return render_template('memes.html')
 
 
 @app.route('/menu.html')
