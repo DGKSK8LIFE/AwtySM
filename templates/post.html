@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>AwtySM</title>
+
+    <link href="https://fonts.googleapis.com/css?family=Public+Sans:300,300i,400&display=swap" rel="stylesheet">
+
+    <link href="{{url_for('static', filename='style.css')}}" rel="stylesheet">
+
+
+    <script
+        src="https://cdn.tiny.cloud/1/s6a6xufycjloikvnwaw1sl6z8b9yns79o567fs4waxzhj58s/tinymce/5/tinymce.min.js"></script>
+    <script>
+        tinymce.init({
+            selector: '#editor',
+            block_formats: 'Paragraph=p; Header 1=h1; Header 2=h2; Header 3=h3',
+            branding: false,
+            plugins: [
+                "advlist autolink lists link image charmap print preview anchor",
+                "searchreplace visualblocks code fullscreen",
+                "insertdatetime media table paste imagetools wordcount"
+            ],
+            toolbar: "insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image",
+            content_css: [
+                '//fonts.googleapis.com/css?family=Public+Sans:300,300i,400',
+                '//static/style.css'
+            ]
+        });
+    </script>
+
+</head>
+
+
+<body>
+    <main id="app">
+        <form id="myForm" action="analyse" method="post" v-on:rest.prevent="clear">
+            <textarea rows="8px" name="content" cols="70px" id="editor" placeholder="Enter the content (body)"
+                v-model="content"></textarea> <br>
+        </form>
+    </main>
+</body>
+
+</html>
