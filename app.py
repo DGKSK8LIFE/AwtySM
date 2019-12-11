@@ -29,7 +29,7 @@ def events():
 
 @app.route('/memes.html')
 def memes():
-    return render_template('memes.html')
+    return render_template('post.html')
 
 
 @app.route('/menu.html')
@@ -49,24 +49,21 @@ def sports():
 
 @app.route('/loggedin', methods=['GET', 'POST'])
 def verify_login():
-    if request.method == 'POST':
-        username = request.form.get('username')
-        password = request.form.get('password')
-        for i in restricted_chars:
-            if i in username or i in password:
-                return render_template('charerr.html')
-        else:
-            db = sqlite3.connect('accounts.sqlite')
-            query = db.execute(
-                f'SELECT * FROM accounts WHERE username=\'{username}\' AND password=\'{password}\';')
-            account = query.fetchall()
-            if account:
-                db.close()
-                return render_template('menu.html')
+    username = request.form.get('username')
+    password = request.form.get('password')
+    for i in restricted_chars:
+        if i in username or i in password:
+            return render_template('charerr.html')
+    else:
+        db = sqlite3.connect('accounts.sqlite')
+        query = db.execute(
+            f'SELECT * FROM accounts WHERE username=\'{username}\' AND password=\'{password}\';')
+        account = query.fetchall()
+        if account:
             db.close()
-            return render_template('index.html')
-    if request.method == 'GET':
-        return request.form.get('username')
+            return render_template('menu.html')
+        db.close()
+        return render_template('index.html')
 
 
 @app.route('/created', methods=['POST'])
