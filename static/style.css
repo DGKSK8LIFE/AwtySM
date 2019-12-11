@@ -7,6 +7,10 @@ body {
     color: #2e2e2e;
 }
 
+title {
+    text-align: center;
+}
+
 a {
     color: #007fff;
     text-decoration: none;
@@ -61,7 +65,6 @@ input, textarea {
 #text-editor {
     padding: 10px !important; 
     font-size: 1em !important;
-    font-family: inherit !important;
     border: 1px solid #efefef;
     width: 80%;
     border-radius: 10px;
