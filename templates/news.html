@@ -5,45 +5,30 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>AwtySM</title>
-
-    <link href="https://fonts.googleapis.com/css?family=Public+Sans:300,300i,400&display=swap" rel="stylesheet">
-
-    <link href="{{url_for('static', filename='style.css')}}" rel="stylesheet">
-
-
-    <script
-        src="https://cdn.tiny.cloud/1/s6a6xufycjloikvnwaw1sl6z8b9yns79o567fs4waxzhj58s/tinymce/5/tinymce.min.js"></script>
-    <script>
-        tinymce.init({
-            selector: '#editor',
-            block_formats: 'Paragraph=p; Header 1=h1; Header 2=h2; Header 3=h3',
-            branding: false,
-            plugins: [
-                "advlist autolink lists link image charmap print preview anchor",
-                "searchreplace visualblocks code fullscreen",
-                "insertdatetime media table paste imagetools wordcount"
-            ],
-            toolbar: "insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image",
-            content_css: [
-                '//fonts.googleapis.com/css?family=Public+Sans:300,300i,400',
-                '//static/style.css'
-            ]
-        });
-    </script>
-
+    <title>Document</title>
 </head>
 
-
 <body>
-    <input name='title' type='text'><br>
-    <main id="app">
-        <form id="myForm" action="/posted/news" method="post" v-on:rest.prevent="clear">
-            <textarea rows="8px" name="content" cols="70px" id="editor" placeholder="Enter the content (body)"
-                v-model="content"></textarea> <br>
-            <input type='submit' value='Post'>
-        </form>
-    </main>
+    <div id="disqus_thread"></div>
+    <script>
+
+        /**
+        *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+        *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables*/
+        var disqus_config = function () {
+            this.page.url = PAGE_URL;  // Replace PAGE_URL with your page's canonical URL variable
+            this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+        };
+        (function () { // DON'T EDIT BELOW THIS LINE
+            var d = document, s = d.createElement('script');
+            s.src = 'https://awtysm.disqus.com/embed.js';
+            s.setAttribute('data-timestamp', +new Date());
+            (d.head || d.body).appendChild(s);
+        })();
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by
+            Disqus.</a></noscript>
+    <script id="dsq-count-scr" src="//awtysm.disqus.com/count.js" async></script>
 </body>
 
-</html
+</html>

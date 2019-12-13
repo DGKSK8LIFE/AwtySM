@@ -5,35 +5,30 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link href="https://fonts.googleapis.com/css?family=Roboto|Varela+Round" rel="stylesheet">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-    <title>AwtySM</title>
+    <title>Document</title>
 </head>
-<style>
-    .wrapper {
-        text-align: center;
-
-    }
-
-    .textbox {
-        font-size: 25px;
-        resize: none;
-    }
-
-    .button {
-        font-size: 50px;
-        text-align: inherit;
-    }
-</style>
 
 <body>
-    <div class="wrapper">
-        <input type="title" name="title">
-        <form>
-            <textarea required maxlength="4200" name="textbox" cols="50" rows="20" class="textbox"></textarea><br>
-            <input class="button" type="submit" value="Post">
-        </form>
-    </div>
+    <div id="disqus_thread"></div>
+    <script>
+
+        /**
+        *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+        *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables*/
+        var disqus_config = function () {
+            this.page.url = PAGE_URL;  // Replace PAGE_URL with your page's canonical URL variable
+            this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+        };
+        (function () { // DON'T EDIT BELOW THIS LINE
+            var d = document, s = d.createElement('script');
+            s.src = 'https://awtysm.disqus.com/embed.js';
+            s.setAttribute('data-timestamp', +new Date());
+            (d.head || d.body).appendChild(s);
+        })();
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by
+            Disqus.</a></noscript>
+    <script id="dsq-count-scr" src="//awtysm.disqus.com/count.js" async></script>
 </body>
 
 </html>
