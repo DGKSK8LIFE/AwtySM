@@ -79,4 +79,4 @@ def create_account():
             db.close()
             return render_template('index.html')
         else:
-            return 'That username is taken! Please choose a different one'
+            return render_template('taken.html')
