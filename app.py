@@ -17,11 +17,6 @@ def show_create():
     return render_template('create.html')
 
 
-@app.route('/chat.html')
-def chat():
-    return render_template('chat.html')
-
-
 @app.route('/events.html')
 def events():
     return render_template('events.html')
