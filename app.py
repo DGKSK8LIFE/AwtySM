@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, session
+from flask import Flask, render_template, request, session, flash
 import sqlite3
 
 app = Flask(__name__)
@@ -53,7 +53,7 @@ def verify_login():
     session['name'] = username
     for i in restricted_chars:
         if i in username or i in password:
-            return render_template('charerr.html')
+            return '<script>alert(\'ACCOUNT CREDENTIALS CANNOT CONTAIN ILLEGAL CHARACTERS\')</script>', render_template('index.html')
     else:
         db = sqlite3.connect('accounts.sqlite')
         query = db.execute(
@@ -73,7 +73,7 @@ def create_account():
     db = sqlite3.connect('accounts.sqlite')
     for i in restricted_chars:
         if i in username or i in password:
-            return render_template('charerr.html')
+            return '<script>alert(\'ACCOUNT CREDENTIALS CANNOT CONTAIN ILLEGAL CHARACTERS\')</script>', render_template('create.html')
     else:
         q = db.execute(
             f'SELECT * FROM accounts WHERE username=\'{username}\';')
