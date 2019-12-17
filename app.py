@@ -1,7 +1,11 @@
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, session
 import sqlite3
 
 app = Flask(__name__)
+
+# secret key for encryption and cookie security
+app.secret_key = 'x3964njs2356xa'
+
 
 restricted_chars = ('/', ';', '*', '=', '\'', '\"',
                     '#', '<', '>', '[', ']', '{', '}')
@@ -46,6 +50,7 @@ def sports():
 def verify_login():
     username = request.form.get('username')
     password = request.form.get('password')
+    session['name'] = username
     for i in restricted_chars:
         if i in username or i in password:
             return render_template('charerr.html')
@@ -56,7 +61,7 @@ def verify_login():
         account = query.fetchall()
         if account:
             db.close()
-            return render_template('menu.html')
+            return render_template('menu.html', username=session.get('name'))
         db.close()
         return render_template('index.html')
 
