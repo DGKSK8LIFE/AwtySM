@@ -54,34 +54,38 @@ def verify_login():
         if i in username or i in password:
             return render_template('charerr.html')
     else:
-        db = sqlite3.connect('accounts.sqlite')
-        query = db.execute(
-            f'SELECT * FROM accounts WHERE username=\'{username}\' AND password=\'{password}\';')
-        account = query.fetchall()
-        if account:
+        try:
+            db = sqlite3.connect('accounts.sqlite')
+            query = db.execute(
+                f'SELECT * FROM accounts WHERE username=\'{username}\' AND password=\'{password}\';')
+            account = query.fetchall()
+            if account:
+                session['name'] = username
+                return render_template('menu.html', username=session.get('name'))
+            return render_template('index.html')
+        finally:
             db.close()
-            session['name'] = username
-            return render_template('menu.html', username=session.get('name'))
-        db.close()
-        return render_template('index.html')
 
 
 @app.route('/created', methods=['POST'])
 def create_account():
     username = request.form.get('username')
     password = request.form.get('password')
-    db = sqlite3.connect('accounts.sqlite')
+
     for i in restricted_chars:
         if i in username or i in password:
             return render_template('charerr.html')
     else:
-        q = db.execute(
-            f'SELECT * FROM accounts WHERE username=\'{username}\';')
-        if not q.fetchone():
-            db.execute(
-                f'INSERT INTO accounts VALUES (\'{username}\', \'{password}\');')
-            db.commit()
+        try:
+            db = sqlite3.connect('accounts.sqlite')
+            q = db.execute(
+                f'SELECT * FROM accounts WHERE username=\'{username}\';')
+            if not q.fetchone():
+                db.execute(
+                    f'INSERT INTO accounts VALUES (\'{username}\', \'{password}\');')
+                db.commit()
+                return render_template('index.html')
+            else:
+                return render_template('taken.html')
+        finally:
             db.close()
-            return render_template('index.html')
-        else:
-            return render_template('taken.html')
