@@ -46,6 +46,8 @@ def sports():
     return render_template('sports.html')
 
 
+""" gets username and password -> checks if they contain restricted characters -> 
+    validate them in the database -> send to menu """
 @app.route('/loggedin', methods=['POST'])
 def verify_login():
     username = request.form.get('username')
@@ -67,11 +69,14 @@ def verify_login():
             db.close()
 
 
+""" gets username & password -> checks to see if they contain illegal characters 
+    -> writes the credentials to the accounts.sqlite database -> redirects to login.html """
+
+
 @app.route('/created', methods=['POST'])
 def create_account():
     username = request.form.get('username')
     password = request.form.get('password')
-
     for i in restricted_chars:
         if i in username or i in password:
             return render_template('charerr.html')
