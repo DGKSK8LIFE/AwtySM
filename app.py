@@ -46,11 +46,10 @@ def sports():
     return render_template('sports.html')
 
 
-@app.route('/loggedin', methods=['GET', 'POST'])
+@app.route('/loggedin', methods=['POST'])
 def verify_login():
     username = request.form.get('username')
     password = request.form.get('password')
-    session['name'] = username
     for i in restricted_chars:
         if i in username or i in password:
             return render_template('charerr.html')
@@ -61,6 +60,7 @@ def verify_login():
         account = query.fetchall()
         if account:
             db.close()
+            session['name'] = username
             return render_template('menu.html', username=session.get('name'))
         db.close()
         return render_template('index.html')
