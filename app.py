@@ -61,7 +61,7 @@ def verify_login():
         account = query.fetchall()
         if account:
             db.close()
-            return render_template('menu.html')
+            return render_template('menu.html', username=session.get('name'))
         db.close()
         return render_template('index.html')
 
