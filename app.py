@@ -48,6 +48,8 @@ def sports():
 
 """ gets username and password -> checks if they contain restricted characters -> 
     validate them in the database -> send to menu """
+
+
 @app.route('/loggedin', methods=['POST'])
 def verify_login():
     username = request.form.get('username')
