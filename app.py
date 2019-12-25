@@ -3,8 +3,7 @@ import sqlite3
 
 app = Flask(__name__)
 
-# secret key for encryption and cookie security
-app.secret_key = 'x3964njs2356xa'
+app.secret_key = 'x3964njs2356xa28169asdfmvm'
 
 
 restricted_chars = ('/', ';', '*', '=', '\'', '\"',
