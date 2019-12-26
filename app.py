@@ -1,4 +1,5 @@
 from flask import Flask, render_template, request, session
+from flask_login import login_required
 import sqlite3
 
 app = Flask(__name__)
@@ -28,11 +29,6 @@ def events():
 @app.route('/memes.html')
 def memes():
     return render_template('memes.html')
-
-
-@app.route('/menu.html')
-def menu():
-    return render_template('menu.html')
 
 
 @app.route('/news.html')
