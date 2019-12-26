@@ -24,26 +24,27 @@ def show_create():
 
 @app.route('/events.html')
 def events():
-    if logged_in == True:
+    if logged_in:
         return render_template('events.html')
 
 
 @app.route('/memes.html')
 def memes():
-    if logged_in == True:
+    if logged_in:
         return render_template('memes.html')
 
 
 @app.route('/news.html')
 def news():
-    if logged_in == True:
+    if logged_in:
         return render_template('news.html')
 
 
 @app.route('/sports.html')
 def sports():
-    if logged_in == True:
+    if logged_in:
         return render_template('sports.html')
+
 
 
 """ gets username and password -> checks if they contain restricted characters -> 
