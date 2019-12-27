@@ -1,5 +1,4 @@
 from flask import Flask, render_template, request, session
-from flask_login import login_required
 import sqlite3
 
 app = Flask(__name__)
@@ -8,8 +7,6 @@ app.secret_key = 'x3964njs2356xa28169asdfmvm'
 
 restricted_chars = ('/', ';', '*', '=', '\'', '\"',
                     '#', '<', '>', '[', ']', '{', '}')
-
-logged_in = False
 
 
 @app.route('/')
@@ -24,27 +21,22 @@ def show_create():
 
 @app.route('/events.html')
 def events():
-    if logged_in:
-        return render_template('events.html')
+    return render_template('events.html')
 
 
 @app.route('/memes.html')
 def memes():
-    if logged_in:
-        return render_template('memes.html')
+    return render_template('memes.html')
 
 
 @app.route('/news.html')
 def news():
-    if logged_in:
-        return render_template('news.html')
+    return render_template('news.html')
 
 
 @app.route('/sports.html')
 def sports():
-    if logged_in:
-        return render_template('sports.html')
-
+    return render_template('sports.html')
 
 
 """ gets username and password -> checks if they contain restricted characters -> 
@@ -55,7 +47,6 @@ def verify_login():
     password = request.form.get('password')
     for i in restricted_chars:
         if i in username or i in password:
-            logged_in == False
             return render_template('charerr.html')
     else:
         try:
@@ -65,7 +56,6 @@ def verify_login():
             account = query.fetchall()
             if account:
                 session['name'] = username
-                logged_in = True
                 return render_template('menu.html', username=session.get('name'))
             return render_template('index.html')
         finally:
