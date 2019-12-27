@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, session
+from flask import Flask, render_template, request, session, url_for
 import sqlite3
 
 app = Flask(__name__)
@@ -21,26 +21,40 @@ def show_create():
 
 @app.route('/events.html')
 def events():
-    return render_template('events.html')
+    if session['logged_in']:
+        return render_template('events.html')
+    else:
+        return render_template('loginerr.html')
 
 
 @app.route('/memes.html')
 def memes():
-    return render_template('memes.html')
+    if session['logged_in']:
+        return render_template('memes.html')
+    else:
+        return render_template('loginerr.html')
 
 
 @app.route('/news.html')
 def news():
-    return render_template('news.html')
+    if session['logged_in']:
+        return render_template('news.html')
+    else:
+        return render_template('loginerr.html')
 
 
 @app.route('/sports.html')
 def sports():
-    return render_template('sports.html')
+    if session['logged_in']:
+        return render_template('sports.html')
+    else:
+        return render_template('loginerr.html')
 
 
 """ gets username and password -> checks if they contain restricted characters -> 
     validate them in the database -> send to menu """
+
+
 @app.route('/loggedin', methods=['POST'])
 def verify_login():
     username = request.form.get('username')
@@ -56,7 +70,9 @@ def verify_login():
             account = query.fetchall()
             if account:
                 session['name'] = username
+                session['logged_in'] = True
                 return render_template('menu.html', username=session.get('name'))
+            session['logged_in'] = False
             return render_template('index.html')
         finally:
             db.close()
@@ -64,6 +80,8 @@ def verify_login():
 
 """ gets username & password -> checks to see if they contain illegal characters 
     -> writes the credentials to the accounts.sqlite database -> redirects to login.html """
+
+
 @app.route('/created', methods=['POST'])
 def create_account():
     username = request.form.get('username')
