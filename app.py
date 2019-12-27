@@ -51,6 +51,14 @@ def sports():
         return render_template('loginerr.html')
 
 
+@app.route('/about.html')
+def about():
+    if session['logged_in']:
+        return render_template('about.html')
+    else:
+        return render_template('loginerr.html')
+
+
 """ gets username and password -> checks if they contain restricted characters -> 
     validate them in the database -> send to menu """
 @app.route('/loggedin', methods=['POST'])
