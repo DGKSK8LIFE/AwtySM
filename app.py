@@ -61,35 +61,34 @@ def about():
 
 """ gets username and password -> checks if they contain restricted characters -> 
     validate them in the database -> send to menu """
-
-
 @app.route('/loggedin', methods=['POST', 'GET'])
 def verify_login():
     username = request.form.get('username')
     password = request.form.get('password')
-    for i in restricted_chars:
-        if i in username or i in password:
-            return render_template('charerr.html')
+    if username and password:
+        for i in restricted_chars:
+            if i in username or i in password:
+                return render_template('charerr.html')
+        else:
+            try:
+                db = sqlite3.connect('accounts.sqlite')
+                query = db.execute(
+                    f'SELECT * FROM accounts WHERE username=\'{username}\' AND password=\'{password}\';')
+                account = query.fetchall()
+                if account:
+                    session['name'] = username
+                    session['logged_in'] = True
+                    return render_template('menu.html', username=session.get('name'))
+                session['logged_in'] = False
+                return render_template('index.html')
+            finally:
+                db.close()
     else:
-        try:
-            db = sqlite3.connect('accounts.sqlite')
-            query = db.execute(
-                f'SELECT * FROM accounts WHERE username=\'{username}\' AND password=\'{password}\';')
-            account = query.fetchall()
-            if account:
-                session['name'] = username
-                session['logged_in'] = True
-                return render_template('menu.html', username=session.get('name'))
-            session['logged_in'] = False
-            return render_template('index.html')
-        finally:
-            db.close()
+        return render_template('loginerr.html')
 
 
 """ gets username & password -> checks to see if they contain illegal characters 
     -> writes the credentials to the accounts.sqlite database -> redirects to login.html """
-
-
 @app.route('/created', methods=['POST'])
 def create_account():
     username = request.form.get('username')
