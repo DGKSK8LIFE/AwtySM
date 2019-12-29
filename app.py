@@ -23,7 +23,7 @@ def show_create():
 def events():
     if session['logged_in']:
         return render_template('events.html')
-    else:
+    elif session['logged_in'] == None:
         return render_template('loginerr.html')
 
 
@@ -31,7 +31,7 @@ def events():
 def memes():
     if session['logged_in']:
         return render_template('memes.html')
-    else:
+    elif session['logged_in'] == None:
         return render_template('loginerr.html')
 
 
@@ -39,7 +39,7 @@ def memes():
 def news():
     if session['logged_in']:
         return render_template('news.html')
-    else:
+    elif session['logged_in'] == None:
         return render_template('loginerr.html')
 
 
@@ -47,7 +47,7 @@ def news():
 def sports():
     if session['logged_in']:
         return render_template('sports.html')
-    else:
+    elif session['logged_in'] == None:
         return render_template('loginerr.html')
 
 
@@ -55,13 +55,15 @@ def sports():
 def about():
     if session['logged_in']:
         return render_template('about.html')
-    else:
+    elif session['logged_in'] == None:
         return render_template('loginerr.html')
 
 
 """ gets username and password -> checks if they contain restricted characters -> 
     validate them in the database -> send to menu """
-@app.route('/loggedin', methods=['POST'])
+
+
+@app.route('/loggedin', methods=['POST', 'GET'])
 def verify_login():
     username = request.form.get('username')
     password = request.form.get('password')
@@ -86,6 +88,8 @@ def verify_login():
 
 """ gets username & password -> checks to see if they contain illegal characters 
     -> writes the credentials to the accounts.sqlite database -> redirects to login.html """
+
+
 @app.route('/created', methods=['POST'])
 def create_account():
     username = request.form.get('username')
