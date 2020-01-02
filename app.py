@@ -110,3 +110,5 @@ def create_account():
                 return render_template('taken.html')
         finally:
             db.close()
+
+
