@@ -23,7 +23,7 @@ def show_create():
 def events():
     if session['logged_in']:
         return render_template('events.html')
-    else:
+    elif session['logged_in'] == None:
         return render_template('loginerr.html')
 
 
@@ -31,7 +31,7 @@ def events():
 def memes():
     if session['logged_in']:
         return render_template('memes.html')
-    else:
+    elif session['logged_in'] == None:
         return render_template('loginerr.html')
 
 
@@ -39,7 +39,7 @@ def memes():
 def news():
     if session['logged_in']:
         return render_template('news.html')
-    else:
+    elif session['logged_in'] == None:
         return render_template('loginerr.html')
 
 
@@ -47,7 +47,7 @@ def news():
 def sports():
     if session['logged_in']:
         return render_template('sports.html')
-    else:
+    elif session['logged_in'] == None:
         return render_template('loginerr.html')
 
 
@@ -55,33 +55,36 @@ def sports():
 def about():
     if session['logged_in']:
         return render_template('about.html')
-    else:
+    elif session['logged_in'] == None:
         return render_template('loginerr.html')
 
 
 """ gets username and password -> checks if they contain restricted characters -> 
     validate them in the database -> send to menu """
-@app.route('/loggedin', methods=['POST'])
+@app.route('/loggedin', methods=['POST', 'GET'])
 def verify_login():
     username = request.form.get('username')
     password = request.form.get('password')
-    for i in restricted_chars:
-        if i in username or i in password:
-            return render_template('charerr.html')
+    if username and password:
+        for i in restricted_chars:
+            if i in username or i in password:
+                return render_template('charerr.html')
+        else:
+            try:
+                db = sqlite3.connect('accounts.sqlite')
+                query = db.execute(
+                    f'SELECT * FROM accounts WHERE username=\'{username}\' AND password=\'{password}\';')
+                account = query.fetchall()
+                if account:
+                    session['name'] = username
+                    session['logged_in'] = True
+                    return render_template('menu.html', username=session.get('name'))
+                session['logged_in'] = False
+                return render_template('index.html')
+            finally:
+                db.close()
     else:
-        try:
-            db = sqlite3.connect('accounts.sqlite')
-            query = db.execute(
-                f'SELECT * FROM accounts WHERE username=\'{username}\' AND password=\'{password}\';')
-            account = query.fetchall()
-            if account:
-                session['name'] = username
-                session['logged_in'] = True
-                return render_template('menu.html', username=session.get('name'))
-            session['logged_in'] = False
-            return render_template('index.html')
-        finally:
-            db.close()
+        return render_template('loginerr.html')
 
 
 """ gets username & password -> checks to see if they contain illegal characters 

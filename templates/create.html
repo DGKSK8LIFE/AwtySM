@@ -14,7 +14,7 @@
     <style type="text/css">
         body {
             font-family: 'Varela Round', sans-serif;
-            background-image: image("https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fwww.chainimage.com%2Fimages%2Fcongrats-to-the-awty-rams-cross-country-teams.gif&f=1&nofb=1");
+            background-color: black;
         }
 
         .modal-login {
@@ -117,11 +117,6 @@
 </head>
 
 <body>
-    <div class="text-center">
-        <!-- Button HTML (to Trigger Modal) -->
-        <a href="#myModal" class="trigger-btn" data-toggle="modal">Create Account</a>
-    </div>
-
     <!-- Modal HTML -->
     <div id="myModal" class="modal fade">
         <div class="modal-dialog modal-login">
@@ -132,7 +127,6 @@
                             alt="Avatar">
                     </div>
                     <h4 class="modal-title">Create an AwtySM account</h4>
-                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                 </div>
                 <div class="modal-body">
                     <form action="/created" method="post">
@@ -153,5 +147,12 @@
         </div>
     </div>
 </body>
+<script>
+    $(document).ready(function () {
+
+        $("#myModal").modal('show');
+
+    });
+</script>
 
 </html>
