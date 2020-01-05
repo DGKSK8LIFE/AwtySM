@@ -1,3 +1,4 @@
 {
-    "python.pythonPath": "awtysm/bin/python3"
+    "python.pythonPath": "awtysm/bin/python3",
+    "python.formatting.provider": "black"
 }
