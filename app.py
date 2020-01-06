@@ -93,23 +93,23 @@ def verify_login():
     -> writes the credentials to the accounts.sqlite database -> redirects to login.html """
 
 
-@app.route('/created', methods=['POST'])
+@app.route("/created", methods=["POST"])
 def create_account():
-    username = request.form.get('username')
-    password = request.form.get('password')
+    username = request.form.get("username")
+    password = request.form.get("password")
     for i in restricted_chars:
         if i in username or i in password:
-            return render_template('charerr.html')
+            return render_template("charerr.html")
     else:
         try:
-            db = sqlite3.connect('accounts.sqlite')
+            db = sqlite3.connect("accounts.sqlite")
             q = db.execute(f"SELECT * FROM accounts WHERE username='{username}';")
             if not q.fetchone():
                 db.execute(f"INSERT INTO accounts VALUES ('{username}', '{password}');")
                 db.commit()
-                return render_template('index.html')
+                return render_template("index.html")
             else:
-                return render_template('taken.html)
+                return render_template("taken.html")
         finally:
             db.close()
 
