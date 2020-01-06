@@ -109,7 +109,7 @@ def create_account():
                 db.commit()
                 return render_template('index.html')
             else:
-                return render_template('taken.html')
+                return render_template('taken.html)
         finally:
             db.close()
 
