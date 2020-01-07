@@ -1,11 +1,12 @@
-from flask import Flask, render_template, request, session
+from flask import Flask, render_template, request, session, make_response
 import sqlite3
 
 app = Flask(__name__)
 
 app.secret_key = "x3964njs2356xa28169asdfmvm"
 
-restricted_chars = ("/", ";", "*", "=", "'", '"', "#", "<", ">", "[", "]", "{", "}")
+restricted_chars = ("/", ";", "*", "=", "'", '"',
+                    "#", "<", ">", "[", "]", "{", "}")
 
 
 @app.route("/")
@@ -20,45 +21,45 @@ def show_create():
 
 @app.route("/events.html")
 def events():
-    if session["logged_in"]:
+    if request.cookies.get('loggedin?'):
         return render_template("events.html")
-    elif session["logged_in"] == None:
+    else:
         return render_template("loginerr.html")
 
 
 @app.route("/memes.html")
 def memes():
-    if session["logged_in"]:
+    if request.cookies.get('loggedin?'):
         return render_template("memes.html")
-    elif session["logged_in"] == None:
+    else:
         return render_template("loginerr.html")
 
 
 @app.route("/news.html")
 def news():
-    if session["logged_in"]:
+    if request.cookies.get('loggedin?'):
         return render_template("news.html")
-    elif session["logged_in"] == None:
+    else:
         return render_template("loginerr.html")
 
 
 @app.route("/sports.html")
 def sports():
-    if session["logged_in"]:
+    if request.cookies.get('loggedin?'):
         return render_template("sports.html")
-    elif session["logged_in"] == None:
+    else:
         return render_template("loginerr.html")
 
 
 @app.route("/about.html")
 def about():
-    if session["logged_in"]:
+    if request.cookies.get('loggedin?'):
         return render_template("about.html")
-    elif session["logged_in"] == None:
+    else:
         return render_template("loginerr.html")
 
 
-""" gets username and password -> checks if they contain restricted characters -> 
+""" gets username and password -> checks if they contain restricted characters ->
     validate them in the database -> send to menu """
 
 
@@ -79,9 +80,13 @@ def verify_login():
                 account = query.fetchall()
                 if account:
                     session["name"] = username
-                    session["logged_in"] = True
-                    return render_template("menu.html", username=session.get("name"))
-                session["logged_in"] = False
+
+                    resp = make_response(render_template(
+                        "menu.html", username=session.get("name")))
+                    resp.set_cookie('loggedin?', True)
+
+                    return resp
+                resp.set_cookie('loggedin?', False)
                 return render_template("index.html")
             finally:
                 db.close()
@@ -103,13 +108,14 @@ def create_account():
     else:
         try:
             db = sqlite3.connect("accounts.sqlite")
-            q = db.execute(f"SELECT * FROM accounts WHERE username='{username}';")
+            q = db.execute(
+                f"SELECT * FROM accounts WHERE username='{username}';")
             if not q.fetchone():
-                db.execute(f"INSERT INTO accounts VALUES ('{username}', '{password}');")
+                db.execute(
+                    f"INSERT INTO accounts VALUES ('{username}', '{password}');")
                 db.commit()
                 return render_template("index.html")
             else:
                 return render_template("taken.html")
         finally:
             db.close()
-
