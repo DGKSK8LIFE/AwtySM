@@ -21,7 +21,7 @@ def show_create():
 
 @app.route("/events.html")
 def events():
-    if request.cookies.get('loggedin?'):
+    if request.cookies.get('loggedin?') == "True":
         return render_template("events.html")
     else:
         return render_template("loginerr.html")
@@ -29,7 +29,7 @@ def events():
 
 @app.route("/memes.html")
 def memes():
-    if request.cookies.get('loggedin?'):
+    if request.cookies.get('loggedin?') == "True":
         return render_template("memes.html")
     else:
         return render_template("loginerr.html")
@@ -37,7 +37,7 @@ def memes():
 
 @app.route("/news.html")
 def news():
-    if request.cookies.get('loggedin?'):
+    if request.cookies.get('loggedin?') == "True":
         return render_template("news.html")
     else:
         return render_template("loginerr.html")
@@ -45,7 +45,7 @@ def news():
 
 @app.route("/sports.html")
 def sports():
-    if request.cookies.get('loggedin?'):
+    if request.cookies.get('loggedin?') == "True":
         return render_template("sports.html")
     else:
         return render_template("loginerr.html")
@@ -53,7 +53,7 @@ def sports():
 
 @app.route("/about.html")
 def about():
-    if request.cookies.get('loggedin?'):
+    if request.cookies.get('loggedin?') == "True":
         return render_template("about.html")
     else:
         return render_template("loginerr.html")
@@ -83,11 +83,12 @@ def verify_login():
 
                     resp = make_response(render_template(
                         "menu.html", username=session.get("name")))
-                    resp.set_cookie('loggedin?', True)
+                    resp.set_cookie('loggedin?', "True")
 
                     return resp
-                resp.set_cookie('loggedin?', False)
-                return render_template("index.html")
+                resp = make_response(render_template('index.html'))
+                resp.set_cookie('loggedin?', "False")
+                return resp
             finally:
                 db.close()
     else:
