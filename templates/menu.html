@@ -10,18 +10,25 @@
     <title>AwtySM Dashboard</title>
 </head>
 
+<style>
+    body {
+        background-color: black;
+    }
+</style>
+
 <body style="height:auto; font-size: xx-large;">
     <nav class="navbar navbar-inverse navbar-fixed-top">
         <ul class="nav navbar-nav">
             <li>
                 <form action="/">
-                    <input type="image" src="https://www.awty.org/uploaded/themes/default_16/images/logo.svg"
-                        border="0" style="padding-right: 30px; padding-left: 15px; padding-top: 10px;">
+                    <input type="image" src="https://www.awty.org/uploaded/themes/default_16/images/logo.svg" border="0"
+                        style="padding-right: 30px; padding-left: 15px; padding-top: 10px;">
                 </form>
             </li>
             <li style="padding-top: 50px;"><a>Welcome, {{ username }}!</a></li>
             <li class="dropdown">
-                <a class="dropdown-toggle" data-toggle="dropdown" style="padding-top: 65px;">Topics<span class="caret"></span></a>
+                <a class="dropdown-toggle" data-toggle="dropdown" style="padding-top: 65px;">Topics<span
+                        class="caret"></span></a>
                 <ul class="dropdown-menu">
                     <li><a href="about.html">About</a></li>
                     <li><a href="sports.html">Sports</a></li>
@@ -32,8 +39,8 @@
             </li>
         </ul>
     </nav>
-    <img style="position: fixed"
-        src="https://external-content.duckduckgo.com/iu/?u=http%3A%2F%2Fwww.awty.org%2Fdata%2Fnews%2Fthumbs%2F1324.768.jpg&f=1&nofb=1">
+    <img style="position: fixed; padding-top: 120px; text-align: right;"
+        src="{{url_for('static', filename='new_logo.png') }} ">
 </body>
 
 </html>
