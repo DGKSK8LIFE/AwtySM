@@ -34,7 +34,7 @@ def events():
     if request.cookies.get('loggedin?') == "True":
         return render_template("events.html")
     else:
-        return render_template("loginerr.html")
+        return render_template("custom_err.html", error='You must be logged in to view exclusive content.')
 
 
 @app.route("/memes.html")
@@ -42,7 +42,7 @@ def memes():
     if request.cookies.get('loggedin?') == "True":
         return render_template("memes.html")
     else:
-        return render_template("loginerr.html")
+        return render_template("custom_err.html", error='You must be logged in to view exclusive content.')
 
 
 @app.route("/news.html")
@@ -50,7 +50,7 @@ def news():
     if request.cookies.get('loggedin?') == "True":
         return render_template("news.html")
     else:
-        return render_template("loginerr.html")
+        return render_template("custom_err.html", error='You must be logged in to view exclusive content.')
 
 
 @app.route("/sports.html")
@@ -58,7 +58,7 @@ def sports():
     if request.cookies.get('loggedin?') == "True":
         return render_template("sports.html")
     else:
-        return render_template("loginerr.html")
+        return render_template("custom_err.html", error='You must be logged in to view exclusive content.')
 
 
 @app.route("/about.html")
@@ -66,7 +66,7 @@ def about():
     if request.cookies.get('loggedin?') == "True":
         return render_template("about.html")
     else:
-        return render_template("loginerr.html")
+        return render_template("custom_err.html", error='You must be logged in to view exclusive content.')
 
 
 """ gets username and password -> checks if they contain restricted characters ->
@@ -80,7 +80,7 @@ def verify_login():
     if username and password:
         for i in restricted_chars:
             if i in username or i in password:
-                return render_template("charerr.html")
+                return render_template("custom_err.html", error='Account credentials cannot contain illegal characters!')
         else:
             try:
                 db = sqlite3.connect("accounts.sqlite")
@@ -102,7 +102,7 @@ def verify_login():
             finally:
                 db.close()
     else:
-        return render_template("loginerr.html")
+        return render_template("custom_err.html", error='You must be logged in to view exclusive content.')
 
 
 """ gets username & password -> checks to see if they contain illegal characters 
@@ -115,7 +115,7 @@ def create_account():
     password = request.form.get("password")
     for i in restricted_chars:
         if i in username or i in password:
-            return render_template("charerr.html")
+            return render_template("custom_err.html", error='Accounts credentials cannot contain illegal characters.')
     else:
         try:
             db = sqlite3.connect("accounts.sqlite")
