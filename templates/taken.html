@@ -26,9 +26,10 @@
     <div class="wrapper">
         <h1>That username is taken! Please choose a different one.</h1>
     </div>
-    <br>    
+    <br>
     <form style="text-align: center;" action="/">
-        <input type="image" src="https://www.awty.org/uploaded/themes/default_16/images/logo.svg" border="0">
+        <input type="image" src="{{ url_for('static', filename='new_logo.png') }}" border="0"
+            style="padding-right: 30px; padding-left: 15px; padding-top: 10px; height: 150px;">
     </form>
 </body>
 
