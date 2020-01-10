@@ -11,7 +11,12 @@ restricted_chars = ("/", ";", "*", "=", "'", '"',
 
 @app.errorhandler(404)
 def page_not_found(e):
-    return render_template('404.html'), 404
+    return render_template('custom_err.html', error='404 Not Found'), 404
+
+
+@app.errorhandler(405)
+def method_not_allowed(e):
+    return render_template('custom_err.html', error='Method Not Allowed'), 405
 
 
 @app.route("/")
