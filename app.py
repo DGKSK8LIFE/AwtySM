@@ -151,6 +151,9 @@ def create_account():
         finally:
             db.close()
 
+@app.route('/creators')
+def creators():
+    return render_template("creators.html", name1 = "AVCADO", name2 = "DGKSK8LIFE")
 
 if __name__ == '__main__':
     socketio.run(app)
