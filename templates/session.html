@@ -15,11 +15,15 @@
         integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 
     <style>
+        body {
+            background-color: black;
+        }
+
         div.msg_bbl {
-            background-color: #ddd;
+            background-color: white;
             padding: 5px 10px;
             border-radius: 10px;
-            color: #555;
+            color: grey;
             margin-bottom: 5px;
         }
     </style>
@@ -106,7 +110,7 @@
         // capture message
         socket.on('my response', function (msg) {
             console.log(msg)
-            $('h1').remove()
+            $('h1').remove();
             $('div.message_holder').append('<div class="msg_bbl"><b style="color: #000">' + 'Anonymous' + '</b> ' + msg.message + '</div>')
         })
     </script>
