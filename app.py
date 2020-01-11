@@ -1,12 +1,24 @@
 from flask import Flask, render_template, request, session, make_response
+from flask_socketio import SocketIO
 import sqlite3
 
 app = Flask(__name__)
+socketio = SocketIO(app)
 
 app.secret_key = "x3964njs2356xa28169asdfmvm"
 
 restricted_chars = ("/", ";", "*", "=", "'", '"',
                     "#", "<", ">", "[", "]", "{", "}")
+
+
+@app.errorhandler(404)
+def page_not_found(e):
+    return render_template('custom_err.html', error='404 Not Found'), 404
+
+
+@app.errorhandler(405)
+def method_not_allowed(e):
+    return render_template('custom_err.html', error='Method Not Allowed'), 405
 
 
 @app.route("/")
@@ -24,7 +36,7 @@ def events():
     if request.cookies.get('loggedin?') == "True":
         return render_template("events.html")
     else:
-        return render_template("loginerr.html")
+        return render_template("custom_err.html", error='You must be logged in to view exclusive content.')
 
 
 @app.route("/memes.html")
@@ -32,7 +44,7 @@ def memes():
     if request.cookies.get('loggedin?') == "True":
         return render_template("memes.html")
     else:
-        return render_template("loginerr.html")
+        return render_template("custom_err.html", error='You must be logged in to view exclusive content.')
 
 
 @app.route("/news.html")
@@ -40,7 +52,7 @@ def news():
     if request.cookies.get('loggedin?') == "True":
         return render_template("news.html")
     else:
-        return render_template("loginerr.html")
+        return render_template("custom_err.html", error='You must be logged in to view exclusive content.')
 
 
 @app.route("/sports.html")
@@ -48,7 +60,7 @@ def sports():
     if request.cookies.get('loggedin?') == "True":
         return render_template("sports.html")
     else:
-        return render_template("loginerr.html")
+        return render_template("custom_err.html", error='You must be logged in to view exclusive content.')
 
 
 @app.route("/about.html")
@@ -56,7 +68,25 @@ def about():
     if request.cookies.get('loggedin?') == "True":
         return render_template("about.html")
     else:
-        return render_template("loginerr.html")
+        return render_template("custom_err.html", error='You must be logged in to view exclusive content.')
+
+
+@app.route('/session.html')
+def sessions():
+    if request.cookies.get('loggedin?') == "True":
+        return render_template('session.html')
+    else:
+        return render_template("custom_err.html", error='You must be logged in to view exclusive content.')
+
+
+def message_received(methods=['GET', 'POST']):
+    print('message was received!')
+
+
+@socketio.on('my event')
+def handle_custom_event(json, methods=['GET', 'POST']):
+    print('received my event: ' + str(json))
+    socketio.emit('my response', json, callback=message_received)
 
 
 """ gets username and password -> checks if they contain restricted characters ->
@@ -68,7 +98,7 @@ def verify_login():
     if username and password:
         for i in restricted_chars:
             if i in username or i in password:
-                return render_template("charerr.html")
+                return render_template("custom_err.html", error='Account credentials cannot contain illegal characters!')
         else:
             try:
                 db = sqlite3.connect("accounts.sqlite")
@@ -90,7 +120,7 @@ def verify_login():
             finally:
                 db.close()
     else:
-        return render_template("loginerr.html")
+        return render_template("custom_err.html", error='You must be logged in to view exclusive content.')
 
 
 """ gets username & password -> checks to see if they contain illegal characters 
@@ -101,7 +131,7 @@ def create_account():
     password = request.form.get("password")
     for i in restricted_chars:
         if i in username or i in password:
-            return render_template("charerr.html")
+            return render_template("custom_err.html", error='Accounts credentials cannot contain illegal characters.')
     else:
         try:
             db = sqlite3.connect("accounts.sqlite")
@@ -116,3 +146,7 @@ def create_account():
                 return render_template("taken.html")
         finally:
             db.close()
+
+
+if __name__ == '__main__':
+    socketio.run(app)

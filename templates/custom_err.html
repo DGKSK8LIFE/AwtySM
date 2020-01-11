@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link href="https://fonts.googleapis.com/css?family=Roboto|Varela+Round" rel="stylesheet">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <title>AwtySM</title>
+</head>
+<style>
+    .wrapper {
+        text-align: center;
+        color: red;
+        text-decoration: underline;
+    }
+
+    body {
+        background-color: black;
+    }
+</style>
+
+<body>
+    <div class="wrapper">
+        <h1>{{ error }}</h1>
+    </div>
+    <br>
+    <form style="text-align: center;" action="/">
+        <input type="image" src="{{ url_for('static', filename='new_logo.png') }}" border="0"
+            style="padding-right: 30px; padding-left: 15px; padding-top: 10px; height: 150px;">
+    </form>
+</body>
+
+</html>
