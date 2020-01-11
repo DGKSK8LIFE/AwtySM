@@ -5,7 +5,9 @@
     <title>AwtySM Chat</title>
 </head>
 <style>
-
+    body {
+        /* background-color: black; */
+    }
 </style>
 
 <body>
@@ -14,7 +16,6 @@
     <div class="message_holder"></div>
 
     <form action="" method="POST">
-        <input type="text" class="username" placeholder="User Name" />
         <input type="text" class="message" placeholder="Messages" />
         <input type="submit" />
     </form>
@@ -23,6 +24,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/1.7.3/socket.io.min.js"></script>
     <script type="text/javascript">
+        var username = '{{ username }}'
         var socket = io.connect('http://' + document.domain + ':' + location.port);
         socket.on('connect', function () {
             socket.emit('my event', {
@@ -30,10 +32,9 @@
             })
             var form = $('form').on('submit', function (e) {
                 e.preventDefault()
-                let user_name = $('input.username').val()
                 let user_input = $('input.message').val()
                 socket.emit('my event', {
-                    user_name: user_name,
+                    user_name: username,
                     message: user_input
                 })
                 $('input.message').val('').focus()
@@ -43,7 +44,7 @@
             console.log(msg)
             if (typeof msg.user_name !== 'undefined') {
                 $('h3').remove()
-                $('div.message_holder').append('<div><b style="color: #000">' + msg.user_name + '</b> ' + msg.message + '</div>')
+                $('div.message_holder').append('<div><b style="color: #000000">' + username + '</b> ' + msg.message + '</div>')
             }
         })
     </script>

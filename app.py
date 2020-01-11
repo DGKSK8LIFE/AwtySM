@@ -74,7 +74,7 @@ def about():
 @app.route('/session.html')
 def sessions():
     if request.cookies.get('loggedin?') == "True":
-        return render_template('session.html')
+        return render_template('session.html', username=request.cookies.get('username'))
     else:
         return render_template("custom_err.html", error='You must be logged in to view exclusive content.')
 
@@ -114,6 +114,7 @@ def verify_login():
                     resp = make_response(render_template(
                         "menu.html", username=session.get("name")))
                     resp.set_cookie('loggedin?', "True")
+                    resp.set_cookie('username', username)
 
                     return resp
                 resp = make_response(render_template('index.html'))
