@@ -1,7 +1,9 @@
 from flask import Flask, render_template, request, session, make_response
+from flask_socketio import SocketIO
 import sqlite3
 
 app = Flask(__name__)
+socketio = SocketIO(app)
 
 app.secret_key = "x3964njs2356xa28169asdfmvm"
 
@@ -69,6 +71,24 @@ def about():
         return render_template("custom_err.html", error='You must be logged in to view exclusive content.')
 
 
+@app.route('/session.html')
+def sessions():
+    if request.cookies.get('loggedin?') == "True":
+        return render_template('session.html')
+    else:
+        return render_template("custom_err.html", error='You must be logged in to view exclusive content.')
+
+
+def message_received(methods=['GET', 'POST']):
+    print('message was received!')
+
+
+@socketio.on('my event')
+def handle_custom_event(json, methods=['GET', 'POST']):
+    print('received my event: ' + str(json))
+    socketio.emit('my response', json, callback=message_received)
+
+
 """ gets username and password -> checks if they contain restricted characters ->
     validate them in the database -> send to menu """
 
@@ -130,3 +150,7 @@ def create_account():
                 return render_template("taken.html")
         finally:
             db.close()
+
+
+if __name__ == '__main__':
+    socketio.run(app)
