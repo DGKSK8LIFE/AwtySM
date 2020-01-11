@@ -74,7 +74,7 @@ def about():
 @app.route('/session.html')
 def sessions():
     if request.cookies.get('loggedin?') == "True":
-        return render_template('session.html', username=request.cookies.get('username'))
+        return render_template('session.html')
     else:
         return render_template("custom_err.html", error='You must be logged in to view exclusive content.')
 
@@ -91,8 +91,6 @@ def handle_custom_event(json, methods=['GET', 'POST']):
 
 """ gets username and password -> checks if they contain restricted characters ->
     validate them in the database -> send to menu """
-
-
 @app.route("/loggedin", methods=["POST", "GET"])
 def verify_login():
     username = request.form.get("username")
@@ -114,7 +112,6 @@ def verify_login():
                     resp = make_response(render_template(
                         "menu.html", username=session.get("name")))
                     resp.set_cookie('loggedin?', "True")
-                    resp.set_cookie('username', username)
 
                     return resp
                 resp = make_response(render_template('index.html'))
@@ -128,8 +125,6 @@ def verify_login():
 
 """ gets username & password -> checks to see if they contain illegal characters 
     -> writes the credentials to the accounts.sqlite database -> redirects to login.html """
-
-
 @app.route("/created", methods=["POST"])
 def create_account():
     username = request.form.get("username")
