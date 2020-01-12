@@ -91,8 +91,6 @@ def handle_custom_event(json, methods=['GET', 'POST']):
 
 """ gets username and password -> checks if they contain restricted characters ->
     validate them in the database -> send to menu """
-
-
 @app.route("/loggedin", methods=["POST", "GET"])
 def verify_login():
     username = request.form.get("username")
@@ -127,8 +125,6 @@ def verify_login():
 
 """ gets username & password -> checks to see if they contain illegal characters 
     -> writes the credentials to the accounts.sqlite database -> redirects to login.html """
-
-
 @app.route("/created", methods=["POST"])
 def create_account():
     username = request.form.get("username")
@@ -150,10 +146,6 @@ def create_account():
                 return render_template("taken.html")
         finally:
             db.close()
-
-@app.route('/creators')
-def creators():
-    return render_template("creators.html", name1 = "AVCADO", name2 = "DGKSK8LIFE")
 
 if __name__ == '__main__':
     socketio.run(app)
