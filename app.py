@@ -147,6 +147,5 @@ def create_account():
         finally:
             db.close()
 
-
 if __name__ == '__main__':
     socketio.run(app)
