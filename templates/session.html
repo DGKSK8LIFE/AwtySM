@@ -98,23 +98,25 @@
                 data: 'User Connected'
             })
             var form = $('form').on('submit', function (e) {
-                e.preventDefault()
+                e.preventDefault();
+                let illegalChars = "abcdefghijklmnopqrstuvwxyz";
+                let letters = illegalChars.split();
                 let user_name = $('input.username').val()
                 let user_input = $('input.message').val()
                 socket.emit('my event', {
                     message: user_input
-                })
+                });
                 // empty the input field
                 $('input.message').val('').focus()
-            })
-        })
+            });
+        });
 
         // capture message
         socket.on('my response', function (msg) {
-            console.log(msg)
+            console.log(msg);
             $('h1').remove();
             $('div.message_holder').append('<div class="msg_bbl"><b style="color: #000">' + 'Anonymous' + '</b> ' + msg.message + '</div>')
-        })
+        });
     </script>
 </body>
 
