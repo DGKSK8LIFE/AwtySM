@@ -110,7 +110,6 @@
 
         // capture message
         socket.on('my response', function (msg) {
-            console.log(msg)
             $('h1').remove();
             $('div.message_holder').append('<div class="msg_bbl"><b style="color: #000">' + 'Anonymous' + '</b> ' + msg.message + '</div>');
         })
