@@ -101,7 +101,6 @@
                 e.preventDefault();
                 let illegalChars = "abcdefghijklmnopqrstuvwxyz";
                 let letters = illegalChars.split();
-                let user_name = $('input.username').val()
                 let user_input = $('input.message').val()
                 socket.emit('my event', {
                     message: user_input
