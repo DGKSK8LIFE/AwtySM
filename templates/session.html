@@ -5,6 +5,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://fonts.googleapis.com/css?family=Roboto|Varela+Round" rel="stylesheet">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
@@ -15,11 +16,15 @@
         integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 
     <style>
+        body {
+            background-color: black;
+        }
+
         div.msg_bbl {
-            background-color: #ddd;
+            background-color: white;
             padding: 5px 10px;
             border-radius: 10px;
-            color: #555;
+            color: grey;
             margin-bottom: 5px;
         }
     </style>
@@ -72,7 +77,8 @@
             <form action="" method="POST">
                 <div class="clearfix" style="margin-top: 5px;"></div>
                 <div style="padding-top: 5px;"></div>
-                <input type="text" class="message form-control" placeholder="Messages" required="required">
+                <input type="text" class="message form-control" placeholder="Messages" required="required"
+                    maxlength="50">
                 <div style="padding-top: 5px;"></div>
                 <button type="submit" class="btn btn-success btn-block"><span class="glyphicon glyphicon-send"></span>
                     Send</button>
@@ -93,21 +99,19 @@
             })
             var form = $('form').on('submit', function (e) {
                 e.preventDefault()
-                let user_name = $('input.username').val()
-                let user_input = $('input.message').val()
+                let user_input = $('input.message').val();
                 socket.emit('my event', {
                     message: user_input
                 })
                 // empty the input field
-                $('input.message').val('').focus()
+                $('input.message').val('').focus();
             })
         })
 
         // capture message
         socket.on('my response', function (msg) {
-            console.log(msg)
-            $('h1').remove()
-            $('div.message_holder').append('<div class="msg_bbl"><b style="color: #000">' + 'Anonymous' + '</b> ' + msg.message + '</div>')
+            $('h1').remove();
+            $('div.message_holder').append('<div class="msg_bbl"><b style="color: #000">' + 'Anonymous' + '</b> ' + msg.message + '</div>');
         })
     </script>
 </body>
