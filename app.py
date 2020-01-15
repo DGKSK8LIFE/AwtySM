@@ -110,7 +110,7 @@ def verify_login():
                     session["name"] = username
 
                     resp = make_response(render_template(
-                        "menu.html", username=session.get("name")))
+                        "menu.html", username=session.get("name").title()))
                     resp.set_cookie('loggedin?', "True")
 
                     return resp
