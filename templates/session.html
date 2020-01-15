@@ -41,10 +41,8 @@
     <nav class="navbar navbar-inverse navbar-fixed-top">
         <ul class="nav navbar-nav">
             <li>
-                <form action="">
-                    <input type="image" src="{{ url_for('static', filename='new_logo.png') }}" border="0"
-                        style="padding-right: 30px; padding-left: 15px; padding-top: 10px; height: 150px;">
-                </form>
+                <img src="{{ url_for('static', filename='new_logo.png') }}" border="0"
+                    style="padding-right: 30px; padding-left: 15px; padding-top: 10px; height: 150px;">
             </li>
             <li class="dropdown">
                 <a class="dropdown-toggle" data-toggle="dropdown" style="padding-top: 70px;">Topics<span
@@ -78,7 +76,8 @@
                 <div class="clearfix" style="margin-top: 5px;"></div>
                 <div style="padding-top: 5px;"></div>
                 <input type="text" class="message form-control" placeholder="Messages" required="required"
-                    maxlength="50">
+                    maxlength="50" onkeyup="this.value = this.value.replace(/[&*<>]/g, '')" pattern=".*\S+.*"
+                    title="You must have content to send a message">
                 <div style="padding-top: 5px;"></div>
                 <button type="submit" class="btn btn-success btn-block"><span class="glyphicon glyphicon-send"></span>
                     Send</button>
@@ -87,12 +86,10 @@
     </div>
 
 
-    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/1.7.3/socket.io.min.js"></script>
     <script>
-        var socket = io.connect('http://' + document.domain + ':' + location.port)
-        // broadcast a message
+        var socket = io.connect('http://' + document.domain + ':' + location.port);
         socket.on('connect', function () {
             socket.emit('my event', {
                 data: 'User Connected'
@@ -103,12 +100,10 @@
                 socket.emit('my event', {
                     message: user_input
                 })
-                // empty the input field
                 $('input.message').val('').focus();
             })
         })
 
-        // capture message
         socket.on('my response', function (msg) {
             $('h1').remove();
             $('div.message_holder').append('<div class="msg_bbl"><b style="color: #000">' + 'Anonymous' + '</b> ' + msg.message + '</div>');
