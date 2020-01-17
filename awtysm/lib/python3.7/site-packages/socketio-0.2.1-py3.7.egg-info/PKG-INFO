@@ -1,0 +1,14 @@
+Metadata-Version: 1.0
+Name: socketio
+Version: 0.2.1
+Summary: UNKNOWN
+Home-page: http://zvonobot.ru
+Author: EvgrDan
+Author-email: UNKNOWN
+License: UNKNOWN
+Description: Description
+        ===========
+        
+        Socket server and client for work with JSON through asyncio
+        It works only on python3
+Platform: UNKNOWN
