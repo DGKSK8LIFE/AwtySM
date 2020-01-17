@@ -21,10 +21,10 @@
         }
 
         div.msg_bbl {
-            background-color: white;
+            background-color: black;
             padding: 5px 10px;
             border-radius: 10px;
-            color: grey;
+            color: white;
             margin-bottom: 5px;
         }
     </style>
@@ -107,9 +107,9 @@
         socket.on('my response', function (msg) {
             if (msg != 'Connected') {
                 $('h1').remove();
-                $('div.message_holder').append('<div class="msg_bbl"><b style="color: #000">' + 'Anonymous' + '</b> ' + msg.message + '</div>');
+                $('div.message_holder').append('<div class="msg_bbl"><b style="color: #817373">' + 'Anonymous' + '</b> ' + msg.message + '</div>');
             } else {
-                $('div.message_holder').append('<div class="msg_bbl"><b style="color: #000">' + 'Anonymous' + '</b> ' + '<i>' + 'User Connected!' + '</i>' + '</div>');
+                $('div.message_holder').append('<div class="msg_bbl"><b style="color: #817373">' + 'Anonymous' + '</b> ' + '<i>' + 'User Connected!' + '</i>' + '</div>');
             }
         });
     </script>
