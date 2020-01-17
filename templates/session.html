@@ -94,7 +94,6 @@
             socket.emit('my event', {
                 data: 'User Connected'
             });
-            $('div.message_holder').append('<div class="msg_bbl"><b style="color: #000">' + 'Anonymous' + '</b> ' + 'Connected' + '</div>');
             var form = $('form').on('submit', function (e) {
                 e.preventDefault();
                 let user_input = $('input.message').val();
@@ -106,8 +105,12 @@
         });
 
         socket.on('my response', function (msg) {
-            $('h1').remove();
-            $('div.message_holder').append('<div class="msg_bbl"><b style="color: #000">' + 'Anonymous' + '</b> ' + msg.message + '</div>');
+            if (msg != 'Connected') {
+                $('h1').remove();
+                $('div.message_holder').append('<div class="msg_bbl"><b style="color: #000">' + 'Anonymous' + '</b> ' + msg.message + '</div>');
+            } else {
+                $('div.message_holder').append('<div class="msg_bbl"><b style="color: #000">' + 'Anonymous' + '</b> ' + '<i>' + 'User Connected!' + '</i>' + '</div>');
+            }
         });
     </script>
 </body>

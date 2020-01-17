@@ -83,6 +83,7 @@ def sessions():
 def handle_custom_event(json):
     if 'data' in json:
         print('received my event: ' + str(json))
+        socketio.emit('my response', 'Connected')
     elif 'message' in json:
         print('received my event: ' + str(json))
         socketio.emit('my response', json)
