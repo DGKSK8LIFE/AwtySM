@@ -1,5 +1,6 @@
 from flask import Flask, render_template, request, session, make_response
 from flask_socketio import SocketIO
+from datetime import datetime
 import sqlite3
 
 app = Flask(__name__)
@@ -87,7 +88,13 @@ def handle_custom_event(json):
     elif 'message' in json:
         print('received my event: ' + str(json))
         socketio.emit('my response', json)
-
+        try:
+            message_store = sqlite3.connect('messages.sqlite')
+            message_store.execute(
+                f"INSERT INTO m_log VALUES ('{json['message']}', '{datetime.now()}');")
+            message_store.commit()
+        finally:
+            message_store.close()
 
 """ gets username and password -> checks if they contain restricted characters ->
     validate them in the database -> send to menu """
