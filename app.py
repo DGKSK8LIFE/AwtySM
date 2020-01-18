@@ -79,14 +79,14 @@ def sessions():
         return render_template("custom_err.html", error='You must be logged in to view exclusive content.')
 
 
-def message_received(methods=['GET', 'POST']):
-    print('message was received!')
-
-
 @socketio.on('my event')
 def handle_custom_event(json):
-    print('received my event: ' + str(json))
-    socketio.emit('my response', json, callback=message_received)
+    if 'data' in json:
+        print('received my event: ' + str(json))
+        socketio.emit('my response', 'Connected')
+    elif 'message' in json:
+        print('received my event: ' + str(json))
+        socketio.emit('my response', json)
 
 
 """ gets username and password -> checks if they contain restricted characters ->
@@ -110,7 +110,7 @@ def verify_login():
                     session["name"] = username
 
                     resp = make_response(render_template(
-                        "menu.html", username=session.get("name")))
+                        "menu.html", username=session.get("name").title()))
                     resp.set_cookie('loggedin?', "True")
 
                     return resp
