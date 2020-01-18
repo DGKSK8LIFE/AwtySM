@@ -91,7 +91,7 @@ def handle_custom_event(json):
         try:
             message_store = sqlite3.connect('messages.sqlite')
             message_store.execute(
-                f"INSERT INTO m_log VALUES ('{json['message']}', '{datetime.now()}');")
+                f"INSERT INTO m_log VALUES ('{json['message']}', '{datetime.utcnow()}');")
             message_store.commit()
         finally:
             message_store.close()
