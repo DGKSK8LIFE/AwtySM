@@ -8,5 +8,6 @@ I created AwtySM because I saw how my peers often connected digitally. There was
 
 ## Server Architecture
 
-This is a visual representation of how the application's architecture currently works:
+### Visual Representation
+
 ![Architecture](https://github.com/DGKSK8LIFE/AwtySM/blob/disqus_integration/architecture.png?raw=true)
