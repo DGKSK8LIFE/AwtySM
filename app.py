@@ -128,6 +128,8 @@ def verify_login():
                 resp = make_response(render_template('index.html'))
                 resp.set_cookie('loggedin?', "False")
                 return resp
+            except Exception as err:
+                print(f'error: {err}')
             finally:
                 db.close()
     else:
