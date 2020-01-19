@@ -152,7 +152,7 @@ def create_account():
             else:
                 return render_template("taken.html")
         finally:
-            db.close()
+            db.close()  
 
 
 if __name__ == '__main__':
