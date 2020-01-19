@@ -89,12 +89,16 @@ def handle_custom_event(json):
         print('received my event: ' + str(json))
         socketio.emit('my response', json)
         try:
+            message = json['message'].replace("'", "")
             message_store = sqlite3.connect('messages.sqlite')
             message_store.execute(
-                f"INSERT INTO m_log VALUES ('{json['message']}', '{datetime.utcnow()}');")
+                f"INSERT INTO m_log VALUES ('{message}', '{datetime.utcnow()}');")
             message_store.commit()
+        except Exception as err:
+            print(f'error: {err}')
         finally:
             message_store.close()
+
 
 """ gets username and password -> checks if they contain restricted characters ->
     validate them in the database -> send to menu """
@@ -151,8 +155,10 @@ def create_account():
                 return render_template("index.html")
             else:
                 return render_template("taken.html")
+        except Exception as err:
+            print(f'error: {err}')
         finally:
-            db.close()  
+            db.close()
 
 
 if __name__ == '__main__':
