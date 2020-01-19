@@ -25,12 +25,11 @@
 <body>
     <div class="wrapper">
         <h1>{{ error }}</h1>
+        <a href="/"><img src="{{ url_for('static', filename='new_logo.png') }}" style="padding-right: 30px;
+                padding-left: 15px; padding-top: 10px; height: 150px;"></a>
     </div>
     <br>
-    <form style="text-align: center;" action="/">
-        <input type="image" src="{{ url_for('static', filename='new_logo.png') }}" border="0"
-            style="padding-right: 30px; padding-left: 15px; padding-top: 10px; height: 150px;">
-    </form>
+
 </body>
 
 </html>
