@@ -26,10 +26,10 @@
     <nav class="navbar navbar-inverse navbar-fixed-top">
         <ul class="nav navbar-nav">
             <li>
-                <form action="/">
-                    <input type="image" src="{{ url_for('static', filename='new_logo.png') }}" border="0"
+                <a href="/">
+                    <img src="{{ url_for('static', filename='new_logo.png') }}" border="0"
                         style="padding-right: 30px; padding-left: 15px; padding-top: 10px; height: 150px;">
-                </form>
+                </a>
             </li>
             <li style="padding-top: 50px;"><a>{{ username }}'s Dashboard</a></li>
             <li class="dropdown">
