@@ -1,5 +1,6 @@
 from flask import Flask, render_template, request, session, make_response
 from flask_socketio import SocketIO
+from datetime import datetime
 import sqlite3
 
 app = Flask(__name__)
@@ -87,6 +88,16 @@ def handle_custom_event(json):
     elif 'message' in json:
         print('received my event: ' + str(json))
         socketio.emit('my response', json)
+        try:
+            message = json['message'].replace("'", "")
+            message_store = sqlite3.connect('messages.sqlite')
+            message_store.execute(
+                f"INSERT INTO m_log VALUES ('{message}', '{datetime.utcnow()}');")
+            message_store.commit()
+        except Exception as err:
+            print(f'error: {err}')
+        finally:
+            message_store.close()
 
 
 """ gets username and password -> checks if they contain restricted characters ->
@@ -117,6 +128,8 @@ def verify_login():
                 resp = make_response(render_template('index.html'))
                 resp.set_cookie('loggedin?', "False")
                 return resp
+            except Exception as err:
+                print(f'error: {err}')
             finally:
                 db.close()
     else:
@@ -144,6 +157,8 @@ def create_account():
                 return render_template("index.html")
             else:
                 return render_template("taken.html")
+        except Exception as err:
+            print(f'error: {err}')
         finally:
             db.close()
 
