@@ -11,3 +11,5 @@ I created AwtySM because I saw how my peers often connected digitally. There was
 ### Visual Representation
 
 ![Architecture](https://github.com/DGKSK8LIFE/AwtySM/blob/disqus_integration/architecture.png?raw=true)
+
+## Estimation Equations
