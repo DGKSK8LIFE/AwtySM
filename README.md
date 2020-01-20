@@ -13,5 +13,7 @@ I created AwtySM because I saw how my peers often connected digitally. There was
 ![Architecture](https://github.com/DGKSK8LIFE/AwtySM/blob/disqus_integration/architecture.png?raw=true)
 
 ## Estimation Equations
+    1. Time it takes to use 100gb of storage for chat logging
+        - (x students * y hours spent sending one message a minute * 60 seconds per minute * 100 bytes (max message size approx.))  / 100 gigabytes
 
 
