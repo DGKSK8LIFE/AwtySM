@@ -14,8 +14,8 @@ I created AwtySM because I saw how my peers often connected digitally. There was
 
 ## Estimation Equations
 
-### Time (in days) it takes to use b gigabytes of storage for chat logging
+### Time (in days) it takes to use b bytes of storage for chat logging
 
-    (x students * y hours spent sending one message a minute * 60 seconds per minute * 100 bytes (max message size approx.))  / b gigabytes = days with available capacity
+    (x students * y hours spent sending one message a minute * 60 seconds per minute * 100 bytes (max message size approx.))  / b bytes = days with available capacity
 
 
