@@ -26,12 +26,6 @@ def method_not_allowed(e):
 def login():
     return render_template("index.html")
 
-
-@app.route("/create.html")
-def show_create():
-    return render_template("create.html")
-
-
 @app.route("/events.html")
 def events():
     if request.cookies.get('loggedin?') == "True":
@@ -134,34 +128,6 @@ def verify_login():
                 db.close()
     else:
         return render_template("custom_err.html", error='You must be logged in to view exclusive content.')
-
-
-""" gets username & password -> checks to see if they contain illegal characters 
-    -> writes the credentials to the accounts.sqlite database -> redirects to login.html """
-@app.route("/created", methods=["POST"])
-def create_account():
-    username = request.form.get("username")
-    password = request.form.get("password")
-    for i in restricted_chars:
-        if i in username or i in password:
-            return render_template("custom_err.html", error='Accounts credentials cannot contain illegal characters.')
-    else:
-        try:
-            db = sqlite3.connect("accounts.sqlite")
-            q = db.execute(
-                f"SELECT * FROM accounts WHERE username='{username}';")
-            if not q.fetchone():
-                db.execute(
-                    f"INSERT INTO accounts VALUES ('{username}', '{password}');")
-                db.commit()
-                return render_template("index.html")
-            else:
-                return render_template("taken.html")
-        except Exception as err:
-            print(f'error: {err}')
-        finally:
-            db.close()
-
 
 if __name__ == '__main__':
     socketio.run(app)
