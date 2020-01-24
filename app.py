@@ -156,7 +156,7 @@ def create_account():
                 db.commit()
                 return render_template("index.html")
             else:
-                return render_template("taken.html")
+                return render_template("custom_err.html", error='Username is taken! Please choose another one.')
         except Exception as err:
             print(f'error: {err}')
         finally:
