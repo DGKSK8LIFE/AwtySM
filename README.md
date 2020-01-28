@@ -20,4 +20,4 @@ I created AwtySM because I saw how my peers often connected digitally. There was
 
 ## License
 
-In this project, I chose to use AGPL because it inherently satisfies the project's legal obligation/needs.
+In this project, I chose to use AGPL because it inherently satisfies the project's legal obligations/needs.
