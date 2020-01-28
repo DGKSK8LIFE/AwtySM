@@ -6,7 +6,7 @@ import sqlite3
 app = Flask(__name__)
 socketio = SocketIO(app)
 
-app.secret_key = ""
+app.secret_key = "key"
 
 restricted_chars = ("/", ";", "*", "=", "'", '"',
                     "#", "<", ">", "[", "]", "{", "}")
