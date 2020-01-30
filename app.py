@@ -86,7 +86,9 @@ def handle_custom_event(json):
         print(f'received my event: {json}')
         socketio.emit('my response', 'Connected')
     elif 'message' in json:
+        json['username'] = request.cookies.get('username')
         print(f'received my event: {json}')
+        json['username'] = request.cookies.get('username')
         socketio.emit('my response', json)
         try:
             message = json['message'].replace("'", "")
@@ -102,6 +104,8 @@ def handle_custom_event(json):
 
 """ gets username and password -> checks if they contain restricted characters ->
     validate them in the database -> send to menu """
+
+
 @app.route("/loggedin", methods=["POST", "GET"])
 def verify_login():
     username = request.form.get("username")
@@ -123,6 +127,7 @@ def verify_login():
                     resp = make_response(render_template(
                         "menu.html", username=session.get("name").title()))
                     resp.set_cookie('loggedin?', "True")
+                    resp.set_cookie('username', username)
 
                     return resp
                 resp = make_response(render_template('index.html'))
@@ -138,6 +143,8 @@ def verify_login():
 
 """ gets username & password -> checks to see if they contain illegal characters 
     -> writes the credentials to the accounts.sqlite database -> redirects to login.html """
+
+
 @app.route("/created", methods=["POST"])
 def create_account():
     username = request.form.get("username")
