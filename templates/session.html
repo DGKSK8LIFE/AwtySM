@@ -78,7 +78,7 @@
                 <div class="clearfix" style="margin-top: 5px;"></div>
                 <div style="padding-top: 5px;"></div>
                 <input type="text" class="message form-control" placeholder="Messages" required="required"
-                    maxlength="100" onkeyup="this.value = this.value.replace(/[&*<>]/g, '')" pattern=".*\S+.*"
+                    maxlength="100" pattern=".*\S+.*"
                     title="You must have content to send a message">
                 <div style="padding-top: 5px;"></div>
                 <button type="submit" class="btn btn-success btn-block"><span class="glyphicon glyphicon-send"></span>
@@ -108,7 +108,7 @@
                 e.preventDefault();
                 let user_input = $('input.message').val();
                 socket.emit('my event', {
-                    message: user_input
+                    message: escapeHtml(user_input)
                 });
                 $('input.message').val('').focus();
             });
