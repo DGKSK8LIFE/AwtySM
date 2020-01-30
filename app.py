@@ -83,10 +83,10 @@ def sessions():
 @socketio.on('my event')
 def handle_custom_event(json):
     if 'data' in json:
-        print('received my event: ' + str(json))
+        print(f'received my event: {json}')
         socketio.emit('my response', 'Connected')
     elif 'message' in json:
-        print('received my event: ' + str(json))
+        print(f'received my event: {json}')
         socketio.emit('my response', json)
         try:
             message = json['message'].replace("'", "")
