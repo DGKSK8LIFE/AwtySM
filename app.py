@@ -88,13 +88,12 @@ def handle_custom_event(json):
     elif 'message' in json:
         json['username'] = request.cookies.get('username')
         print(f'received my event: {json}')
-        json['username'] = request.cookies.get('username')
         socketio.emit('my response', json)
         try:
             message = json['message'].replace("'", "")
             message_store = sqlite3.connect('messages.sqlite')
             message_store.execute(
-                f"INSERT INTO m_log VALUES ('{message}', '{datetime.utcnow()}');")
+                f"INSERT INTO m_log VALUES ('{message}', '{datetime.utcnow()}', \"{json['username']}\");")
             message_store.commit()
         except Exception as err:
             print(f'error: {err}')
