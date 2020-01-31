@@ -4,7 +4,10 @@ I created AwtySM because I saw how my peers often connected digitally. There was
 
 ## Logos
 
-Logo: ![logo](https://github.com/DGKSK8LIFE/AwtySM/blob/disqus_integration/static/new_logo.png?raw=true) Mobile Logo: ![mobile logo](https://github.com/DGKSK8LIFE/AwtySM/blob/disqus_integration/static/awtySM-mobile-good-logo.png?raw=true)
+Logo: 
+![logo](https://github.com/DGKSK8LIFE/AwtySM/blob/disqus_integration/static/new_logo.png?raw=true) 
+Mobile Logo: 
+![mobile logo](https://github.com/DGKSK8LIFE/AwtySM/blob/disqus_integration/static/awtySM-mobile-good-logo.png?raw=true)
 
 ## Server Architecture
 
