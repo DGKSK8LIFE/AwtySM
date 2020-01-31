@@ -78,8 +78,7 @@
                 <div class="clearfix" style="margin-top: 5px;"></div>
                 <div style="padding-top: 5px;"></div>
                 <input type="text" class="message form-control" placeholder="Messages" required="required"
-                    maxlength="100" pattern=".*\S+.*"
-                    title="You must have content to send a message">
+                    maxlength="100" pattern=".*\S+.*" title="You must have content to send a message">
                 <div style="padding-top: 5px;"></div>
                 <button type="submit" class="btn btn-success btn-block"><span class="glyphicon glyphicon-send"></span>
                     Send</button>
@@ -118,9 +117,9 @@
         socket.on('my response', function (msg) {
             if (msg != 'Connected') {
                 $('h1').remove();
-                $('div.message_holder').append('<div class="msg_bbl"><b style="color: #817373">' + msg.username + '</b> ' + msg.message + '</div>');
+                $('div.message_holder').append('<div class="msg_bbl"><b style="color: #000">' + msg.username + '</b> ' + msg.message + '</div>');
             } else {
-                $('div.message_holder').append('<div class="msg_bbl"><b style="color: #817373">' + '<i>' + 'User Connected!' + '</i>' + '</div>');
+                $('div.message_holder').append('<div class="msg_bbl"><b style="color: #FFF">' + '<i> ' + 'User Connected!' + '</i>' + '</div>');
             }
         });
     </script>
