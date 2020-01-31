@@ -1,6 +1,6 @@
 # AwtySM (Awty Social Media)
 
-I created AwtySM because I saw how my peers often connected digitally. There was one problem though: a lack of unity. Each clique communicated separately on different platforms. AwtySM is my attempt at providing a universal social platform for students. This branch allows users to create accounts.
+I created AwtySM because I saw how my peers often connected digitally. There was one problem though: a lack of unity; each clique communicated separately on different platforms. AwtySM is my attempt at providing a universal social platform for my school's students, though the application can be reproduced and mutated to match your preferred aesthetics (this project can essentially be used as a full-stack template for an application). This branch allows users to create accounts.
 
 ## Logos
 
